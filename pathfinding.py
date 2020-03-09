@@ -123,15 +123,11 @@ def eraseprevpath():
             if row == end[0] and column == end[1]:
                 grid[row][column] = 2
 def doanimation(checkedlist,data):
-    #path is data
     eraseprevpath()
-    #print checkedlistfirst
     for count,x in enumerate(checkedlist):
         count += 1
         screen.fill(black)
         grid[x[0]][x[1]] = 3
-        #if grid != previousgrid:  
-        #previousgrid = grid
         for row in range(len(grid)):
             for column in range(len(grid)):
                 color = white
@@ -160,8 +156,6 @@ def doanimation(checkedlist,data):
     for x in data:
         if not (x[0] == start[0] and x[1] == start[1]):
             grid[x[0]][x[1]] = 4
-        #if grid != previousgrid:  
-        #previousgrid = grid
         color = white
         if grid[x[0]][x[1]] == 1:
             color = black
@@ -207,7 +201,6 @@ while not done:
             pos = pygame.mouse.get_pos()
             column = pos[0] // (width+margin)
             row = pos[1] // (height+margin)
-            #print("Click " , pos, "Grid coordinates: ", row,column)
             if row < len(grid) and column < len(grid):
                 if not (row == start[0] and column == start[1]):
                     grid[row][column] = 1
@@ -218,7 +211,6 @@ while not done:
             if row < len(grid) and column < len(grid):
                 if not (row == start[0] and column == start[1]):
                     grid[row][column] = 0
-            #print("Click " , pos, "Grid coordinates: ", row,column)
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_z:
                 pos = pygame.mouse.get_pos()
