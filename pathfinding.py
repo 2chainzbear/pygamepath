@@ -232,7 +232,6 @@ while not done:
                 eraseprevpath()
                 data,checkedlist = astar(start,end)
                 doanimation(checkedlist,data)
-
     screen.fill(black)
 
     
