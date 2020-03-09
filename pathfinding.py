@@ -4,7 +4,7 @@ import time
 from tkinter import *
 from tkinter import messagebox
 Tk().wm_withdraw() #to hide the main window
-messagebox.showinfo('Info','Welcome to my a star visualization, the start is the blue square the end is the red square. To move the red square hover over a square and press \'Z\' to place walls hold left click to draw and use right click to erase them. Press \'P\' to solve the path. To clear the board press \'C\'')
+messagebox.showinfo('Info','Welcome to my a* visualization, the start is the blue square the end is the red square. To move the red square hover over a square and press \'Z\' to place walls hold left click to draw and use right click to erase them. Press \'P\' to solve the path. To clear the board press \'C\'')
 #ddd
 window_size = [610,610]
 black = (0,0,0)
@@ -46,7 +46,6 @@ def astar(start,end):
 
     openlist = []
     closedlist = []
-    previousgrid = []
     openlist.append(start_node)
     count = 0
     checkedlist = []
