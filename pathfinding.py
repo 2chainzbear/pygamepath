@@ -4,7 +4,7 @@ import time
 from tkinter import *
 from tkinter import messagebox
 Tk().wm_withdraw() #to hide the main window
-messagebox.showinfo('ok','Welcome to my a star visualization, the start is the blue square the end is the red square. To move the red square hover over a square and press \'Z\' to place walls hold left click to draw and use right click to erase them. Press p to solve the path.')
+messagebox.showinfo('Info','Welcome to my a star visualization, the start is the blue square the end is the red square. To move the red square hover over a square and press \'Z\' to place walls hold left click to draw and use right click to erase them. Press \'P\' to solve the path. To clear the board press \'C\'')
 #ddd
 window_size = [610,610]
 black = (0,0,0)
@@ -53,7 +53,6 @@ def astar(start,end):
     eraseprevpath()
     start_time = time.time()
     while len(openlist) > 0 and count < (len(grid)//2)**10:
-        #check adjacent squares up down left right for lowest fcost
         current_node = openlist[0]
         current_index = 0
         for index,item in enumerate(openlist):
