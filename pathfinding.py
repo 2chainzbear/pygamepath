@@ -195,8 +195,6 @@ for row in range(gridsize):
         grid[row].append(0)
 
 pygame.init()
-font = pygame.font.SysFont('Arial',15)
-smallerfont = pygame.font.SysFont('Arial',10)
 screen = pygame.display.set_mode(window_size)
 done = False
 clock = pygame.time.Clock()
