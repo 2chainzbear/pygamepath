@@ -113,12 +113,8 @@ def astar(start,end):
 def eraseprevpath():
     for row in range(len(grid)):
         for column in range(len(grid)):
-            if grid[row][column] == 3 and not (row == start[0] and column == start[1]):
+            if grid[row][column] == 3 and not (row == start[0] and column == start[1]) or grid[row][column] == 4 or (row == start[0] and column == start[1]):
                 grid[row][column] = 0 
-            if grid[row][column] == 4:
-                grid[row][column] = 0
-            if row == start[0] and column == start[1]:
-                grid[row][column] = 5
             if row == end[0] and column == end[1]:
                 grid[row][column] = 2
 def doanimation(checkedlist,data):
