@@ -21,7 +21,6 @@ grid = []
 start = (0,0)
 end = (9,9)
 gridsize = 15
-#look at what the algo does next to a border can only enter the top
 class Node():
     """A node class for A* Pathfinding"""
 
