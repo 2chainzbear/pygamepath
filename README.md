@@ -10,3 +10,7 @@ Right click to erase walls
 Press c to clear the screen
 
 Press p to solve the path
+
+Press x on a square to move the start
+
+
