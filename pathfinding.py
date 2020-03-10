@@ -88,7 +88,6 @@ def astar(start,end):
             if new_position in[(1,1),(-1,1),(-1,-1),(1,-1)]:
                 if  -1 < node_position[0]-new_position[0] < len(grid) and -1 < node_position[1]-new_position[1] < len(grid):
                     if grid[node_position[0]-new_position[0]][node_position[1]] == 1 and grid[node_position[0]][node_position[1]-new_position[1]] == 1:
-                            
                             continue
             # Create new node
             new_node = Node(current_node, node_position)
@@ -117,6 +116,7 @@ def eraseprevpath():
                 grid[row][column] = 0 
             if row == end[0] and column == end[1]:
                 grid[row][column] = 2
+
 def doanimation(checkedlist,data):
     eraseprevpath()
     for count,x in enumerate(checkedlist):
@@ -187,7 +187,6 @@ screen = pygame.display.set_mode(window_size)
 done = False
 clock = pygame.time.Clock()
 while not done:
-    grid[0][0] = 5
     grid[end[0]][end[1]] = 2
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -221,8 +220,26 @@ while not done:
                 for x in range(len(grid)):
                     for y in range(len(grid)):
                         colorid = grid[x][y]
-                        if(colorid == 3 or colorid == 1 or colorid == 4):
+                        if(colorid == 3 or colorid == 4):
                             grid[x][y] = 0
+            if event.key == pygame.K_x:
+                pos = pygame.mouse.get_pos()
+                column = pos[0] // (width+margin)
+                row = pos[1] // (height+margin)
+                if row < len(grid) and column < len(grid):
+                    grid[start[0]][start[1]] = 0
+                    if not (row == start[0] and column == start[1]):
+                        grid[row][column] = 5
+                        start = (row,column)
+                print("x key pressed")
+            if event.key == pygame.K_l:
+                print(grid)
+            if event.key == pygame.K_b:
+                grid[end[0]][end[1]] = 0
+                grid[14][13] = 2
+                end = (14,13)
+                grid = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 
+0, 0, 0, 0, 1, 0, 1, 1, 0, 0], [1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1]]
             if event.key == pygame.K_p:
                 eraseprevpath()
                 data,checkedlist = astar(start,end)
