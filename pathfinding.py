@@ -3,9 +3,12 @@ import sys
 import time
 from tkinter import *
 from tkinter import messagebox
+import math
 Tk().wm_withdraw() #to hide the main window
 messagebox.showinfo('Info','Welcome to my a* visualization, the start is the blue square the end is the red square. To move the red square hover over a square and press \'Z\' to place walls hold left click to draw and use right click to erase them. Press \'P\' to solve the path. To clear the board press \'C\'')
-#ddd
+#todo fix prioritizing moving diagonal when should move in cardinal directions
+#believe it is seeing moving diagonal as 1 space moved
+#fix catching for no solution error
 window_size = [610,610]
 black = (0,0,0)
 white = (255,255,255)
@@ -90,24 +93,29 @@ def astar(start,end):
                     if grid[node_position[0]-new_position[0]][node_position[1]] == 1 and grid[node_position[0]][node_position[1]-new_position[1]] == 1:
                             continue
             # Create new node
-            new_node = Node(current_node, node_position)
             
+            
+            if new_position not in[(1,1),(-1,1),(-1,-1),(1,-1)]:
+                new_node = Node(current_node, node_position)
+                new_node.g = current_node.g + 1
+            else:
+                new_node = Node(current_node, node_position)
+                new_node.g = current_node.g + math.sqrt(2)
             if node_position not in checkedlist:
                 checkedlist.append(node_position)
             for closed_child in closedlist:
                 if new_node.position == closed_child.position:
                     continue
-            new_node.g = current_node.g + 1
             if new_node not in openlist:
                 new_node.h = ((new_node.position[0]-end_node.position[0])**2)+((new_node.position[1]-end_node.position[1])**2)
                 new_node.f = new_node.g + new_node.h
                 openlist.append(new_node)
             for openchild in openlist:  
-                if openchild == new_node and new_node.f >= openchild.f:
+                if openchild == new_node and new_node.g > openchild.g:
                     continue
 
         count += 1
-        
+    raise ValueError    
 
 def eraseprevpath():
     for row in range(len(grid)):
@@ -242,8 +250,12 @@ while not done:
 0, 0, 0, 0, 1, 0, 1, 1, 0, 0], [1, 1, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1, 1, 0, 0], [0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1], [1, 1, 1, 0, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1]]
             if event.key == pygame.K_p:
                 eraseprevpath()
-                data,checkedlist = astar(start,end)
-                doanimation(checkedlist,data)
+                try:
+                    data,checkedlist = astar(start,end)
+                    doanimation(checkedlist,data)
+                except ValueError:
+                    print("No solution")
+    
     screen.fill(black)
 
     
