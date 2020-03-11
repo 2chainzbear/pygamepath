@@ -3,7 +3,9 @@ visual pygame implementation of path finding algorithm
 
 ![](demo.gif)
 
-Press z while hovering over a square to change the location of the end.
+Press z while hovering over a square to change the location of the end (red square)
+
+Press x while hovering over a square to change the location of the start (blue square)
 
 Left click to draw walls
 
