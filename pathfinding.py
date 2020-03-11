@@ -78,7 +78,7 @@ def astar(start,end):
 
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
             # Make sure within range
-            if node_position[0] > len(grid)-1 or node_position[0] < 0 or node_position[1] > len(grid)-1 or node_position[1] < 0:
+            if node_position[0] > (len(grid)-1) or node_position[0] < 0 or node_position[1] > (len(grid)-1) or node_position[1] < 0:
                 continue
 
             # Make sure walkable terrain
@@ -93,26 +93,35 @@ def astar(start,end):
                     if grid[node_position[0]-new_position[0]][node_position[1]] == 1 and grid[node_position[0]][node_position[1]-new_position[1]] == 1:
                             continue
             # Create new node
-            
+            #distance = ((new_node.position[0]-end_node.position[0])**2)+((new_node.position[1]-end_node.position[1])**2)
+
             
             if new_position not in[(1,1),(-1,1),(-1,-1),(1,-1)]:
                 new_node = Node(current_node, node_position)
                 new_node.g = current_node.g + 1
+                new_node.h += math.sqrt((abs(new_node.position[0]-end_node.position[0])**2)+(abs(new_node.position[1]-end_node.position[1])**2))
             else:
                 new_node = Node(current_node, node_position)
                 new_node.g = current_node.g + math.sqrt(2)
+                new_node.h = math.sqrt(1+(abs(new_node.position[0]-end_node.position[0]))**2)+((abs(new_node.position[1]-end_node.position[1])**2))
             if node_position not in checkedlist:
                 checkedlist.append(node_position)
             for closed_child in closedlist:
-                if new_node.position == closed_child.position:
+                if new_node.position == closed_child.position and new_node.g>closed_child.g:
                     continue
             if new_node not in openlist:
-                new_node.h = ((new_node.position[0]-end_node.position[0])**2)+((new_node.position[1]-end_node.position[1])**2)
+                dx1 = new_node.position[0] - end_node.position[0]
+                dy1 = new_node.position[1] - end_node.position[1]
+                dx2 = start[0] - end[0]
+                dy2 = start[1] - end[1]
+                cross = abs(dx1*dy2-dx2*dy2)
+                
                 new_node.f = new_node.g + new_node.h
                 openlist.append(new_node)
             for openchild in openlist:  
                 if openchild == new_node and new_node.g > openchild.g:
                     continue
+
 
         count += 1
     raise ValueError    
