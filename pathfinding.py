@@ -120,7 +120,7 @@ def astar(start,end):
 
 
         count += 1
-    raise ValueError    
+    #raise ValueError  d  
 
 def eraseprevpath():
     for row in range(len(grid)):
