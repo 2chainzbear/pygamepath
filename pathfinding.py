@@ -105,7 +105,7 @@ def astar(start,end):
             else:
                 new_node = Node(current_node, node_position)
                 new_node.g = current_node.g + math.sqrt(2)
-                new_node.h = math.sqrt(1+distance)
+                new_node.h = math.sqrt(((abs(new_node.position[0]-end_node.position[0]))+1)**2+abs(new_node.position[1]-end_node.position[1])**2)
             if node_position not in checkedlist:
                 checkedlist.append(node_position)
             for closed_child in closedlist:
@@ -190,7 +190,7 @@ def doanimation(checkedlist,data):
 
 
 
-
+print("Initializing Game Board")
 for row in range(gridsize):
     grid.append([])
     for column in range(gridsize):
@@ -200,8 +200,8 @@ pygame.init()
 screen = pygame.display.set_mode(window_size)
 done = False
 clock = pygame.time.Clock()
+print("Starting Game")
 while not done:
-    grid[end[0]][end[1]] = 2
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
@@ -234,7 +234,7 @@ while not done:
                 for x in range(len(grid)):
                     for y in range(len(grid)):
                         colorid = grid[x][y]
-                        if(colorid == 3 or colorid == 4):
+                        if(colorid == 3 or colorid == 4 or colorid == 1):
                             grid[x][y] = 0
             if event.key == pygame.K_x:
                 pos = pygame.mouse.get_pos()
