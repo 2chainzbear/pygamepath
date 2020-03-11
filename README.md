@@ -1,5 +1,7 @@
 # pygamepath
-visual pygame implementation of a* path finding algorithm
+visual pygame implementation of path finding algorithm
+
+![](demo.gif)
 
 Press z while hovering over a square to change the location of the end.
 
