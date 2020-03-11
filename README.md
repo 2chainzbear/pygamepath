@@ -11,7 +11,7 @@ Left click to draw walls
 
 Right click to erase walls
 
-Press c to clear the screen
+Press c to clear the board
 
 Press p to solve the path
 
