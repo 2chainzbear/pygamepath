@@ -1,7 +1,11 @@
 # pygamepath
-visual pygame implementation of a* path finding algorithm
+visual pygame implementation of path finding algorithm
 
-Press z while hovering over a square to change the location of the end.
+![](demo.gif)
+
+Press z while hovering over a square to change the location of the end (red square)
+
+Press x while hovering over a square to change the location of the start (blue square)
 
 Left click to draw walls
 
